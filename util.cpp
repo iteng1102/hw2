@@ -15,16 +15,35 @@ std::string convToLower(std::string src)
     to a set of words based on the criteria given in the assignment **/
 std::set<std::string> parseStringToWords(string rawWords)
 {
-
-
-
-
-
-
-
-
-
-
+  set<string> words;
+  string trimmed = trim(rawWords); //first trim the word 
+  trimmed = convToLower(trimmed); //make them all into lower case 
+  stringstream ss(trimmed);
+  string all;
+  while (ss>>all){
+    string temp;
+    for (int i = 0; i< all.length(); i++){
+      if (ispunct(all[i])){ //find punctuations 
+        if (temp.length()>1){
+          words.insert(temp); //if word length bigger than 1, add it to word 
+          //cout << "inserted " << endl;
+        }
+        temp.clear();
+        //cout << "Cleared " << endl;
+      }
+      else if (i == all.length()-1 && !ispunct(all[i])){
+        temp.push_back(all[i]);
+        if (temp.length()>1){ //checks if larger than 1
+          words.insert(temp);
+        }
+      }
+      else{
+        temp.push_back(all[i]); //if nothing just push the word in 
+        //cout << "pushed back " << all[i] << endl;
+      }
+    }
+  }
+  return words;
 }
 
 /**************************************************
